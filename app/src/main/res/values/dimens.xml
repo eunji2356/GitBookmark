@@ -9,6 +9,7 @@
     <dimen name="layout_dp_80">80dp</dimen>
 
     <!-- Text Size -->
+    <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_20">20sp</dimen>
     <dimen name="text_size_32">32sp</dimen>
 </resources>

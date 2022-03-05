@@ -1,7 +1,9 @@
 package kr.co.chooji.gitbookmark.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,8 @@ import kr.co.chooji.githubapi.model.search.SearchUser
 
 class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
 
-    var list: MutableList<SearchUser> = mutableListOf()
+    val list: MutableList<SearchUser> = mutableListOf()
+    private var userNameList = mutableListOf<String>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateUserList(page: Int, userList: MutableList<SearchUser>){
@@ -24,12 +27,31 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
         list.addAll(userList)
         list.sortBy { it.login }
 
+        showHeader()
         notifyDataSetChanged()
+    }
+
+    /**
+     * Header 를 표시해줄 사용자 목록
+     * */
+    private fun showHeader(){
+        userNameList.clear()
+        list.groupBy { it.login.substring(0 until 1) }
+            .forEach {
+                userNameList.add(it.value[0].login)
+            }
     }
 
     inner class Holder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
             val item = list[position]
+
+            if(userNameList.indexOf(item.login) >= 0){
+                binding.userSort.visibility = View.VISIBLE
+                binding.userSort.text = item.login.substring(0 until 1)
+            } else{
+                binding.userSort.visibility = View.GONE
+            }
 
             Glide.with(binding.userImg.context).load(item.avatarUrl)
                 .transform(CenterCrop(), RoundedCorners(50))

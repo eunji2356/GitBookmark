@@ -14,6 +14,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp">
 
+        <TextView
+            android:id="@+id/user_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:paddingBottom="@dimen/layout_dp_8"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
         <ImageView
             android:id="@+id/user_img"
             android:layout_width="@dimen/layout_dp_80"
@@ -21,7 +33,7 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/none_img"
             android:layout_marginEnd="@dimen/layout_dp_20"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_sort"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/user"/>
 
@@ -33,7 +45,7 @@
             android:textSize="@dimen/text_size_20"
             android:includeFontPadding="false"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_sort"
             app:layout_constraintStart_toEndOf="@id/user_img"
             app:layout_constraintEnd_toStartOf="@id/user_star"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -44,7 +56,7 @@
             android:layout_height="@dimen/layout_dp_36"
             android:layout_marginStart="@dimen/layout_dp_20"
             android:src="@drawable/ic_star_off"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_sort"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/user"
             app:layout_constraintBottom_toBottomOf="parent"/>
