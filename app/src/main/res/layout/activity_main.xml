@@ -64,6 +64,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/search_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/edit_hint"
@@ -72,11 +73,17 @@
                 android:background="@android:color/transparent"/>
 
             <ImageButton
-                android:layout_width="@dimen/layout_dp_40"
-                android:layout_height="@dimen/layout_dp_40"
-                android:background="@drawable/ic_search_icon"/>
+                android:id="@+id/search_btn"
+                android:layout_width="@dimen/layout_dp_36"
+                android:layout_height="@dimen/layout_dp_36"
+                android:background="@drawable/ic_search"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
