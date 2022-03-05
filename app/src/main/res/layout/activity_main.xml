@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="main"
+            type="kr.co.chooji.gitbookmark.view.MainActivity" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_32"
+            android:text="@string/title_bar_name"
+            android:padding="@dimen/layout_dp_12"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@android:color/darker_gray"
+            app:tabSelectedTextColor="@color/black"
+            app:tabIndicatorColor="@color/sky_blue"
+            app:tabTextAppearance="@style/tab_text"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabGravity="fill">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_api"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_api"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_local"/>
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/layout_dp_16"
+            android:layout_marginEnd="@dimen/layout_dp_16"
+            android:layout_marginTop="@dimen/layout_dp_8"
+            android:layout_marginBottom="@dimen/layout_dp_8"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_hint"
+                android:layout_weight="1"
+                android:padding="@dimen/layout_dp_12"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="@dimen/layout_dp_40"
+                android:layout_height="@dimen/layout_dp_40"
+                android:background="@drawable/ic_search_icon"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_dp_8">8dp</dimen>
+    <dimen name="layout_dp_12">12dp</dimen>
+    <dimen name="layout_dp_16">16dp</dimen>
+    <dimen name="layout_dp_40">40dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
+</resources>
