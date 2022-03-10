@@ -19,9 +19,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
 
+    private var tabPosition: Int = 0
     private var page: Int = 1
     var search: String = ""
-    private var tabPosition: Int = 0
 
     private val adapter = SearchAdapter()
 
@@ -75,16 +75,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
-        adapter.setClickListener {
-            if(DBAdapter.selectUser(it.id)){
-                DBAdapter.deleteUserBookmark(it.id)
-            }
-            else{
-                DBAdapter.updateUserBookmark(it)
-            }
-            adapter.notifyDataSetChanged()
-        }
     }
 
     private fun observerViewModel(){
@@ -99,6 +89,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * tab 변경 시, 사용자 목록 및 검색 박스 초기화
+     * */
     @SuppressLint("NotifyDataSetChanged")
     fun tabClickEvent(tabPosition: Int){
         adapter.apply {

@@ -20,6 +20,9 @@ class MainViewModel: ViewModel() {
 
     val userList = MutableLiveData<MutableList<SearchUser>>()
 
+    /**
+     * Github 사용자 검색
+     * */
     fun getSearchUser(search:String, page: Int){
         disposable.add(getAPI.getSearchUser(search, page, PER_PAGE)
             .subscribeOn(Schedulers.io())
@@ -32,6 +35,9 @@ class MainViewModel: ViewModel() {
         )
     }
 
+    /**
+     * 즐겨찾기한 목록 불러오기
+     * */
     fun getBookMark(search:String){
         userList.value = DBAdapter.selectBookMark(search)
     }

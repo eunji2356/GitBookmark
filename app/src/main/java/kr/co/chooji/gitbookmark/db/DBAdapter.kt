@@ -28,6 +28,11 @@ class DBAdapter(context: Context) : DBHelper(
             }
         }
 
+        /**
+         * 즐겨찾기한 목록 불러오기
+         *
+         * @param search 검색할 사용자 이름
+         */
         @SuppressLint("Range")
         fun selectBookMark(search:String): ArrayList<SearchUser>{
             val result: ArrayList<SearchUser> = arrayListOf()
@@ -60,10 +65,12 @@ class DBAdapter(context: Context) : DBHelper(
 
         /**
          * 해당 유저의 즐겨찾기 여부 체크
+         *
+         * @param id 사용자 ID
          * */
         @SuppressLint("Range")
         fun selectUser(id: Int): Boolean{
-            var result: Boolean = false
+            var result = false
             try {
                 val sql =
                     """
@@ -85,6 +92,8 @@ class DBAdapter(context: Context) : DBHelper(
 
         /**
          * 해당 사용자 즐겨찾기 삭제
+         *
+         * @param id 사용자 ID
          * */
         fun deleteUserBookmark(id: Int){
             try {
@@ -101,6 +110,8 @@ class DBAdapter(context: Context) : DBHelper(
 
         /**
          * 즐겨찾기 목록 추가/수정
+         *
+         * @param user 즐겨찾기에 추가할 사용자 정보
          * */
         fun updateUserBookmark(user: SearchUser){
             try {

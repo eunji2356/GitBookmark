@@ -1,7 +1,6 @@
 package kr.co.chooji.gitbookmark.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,9 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
     val list: MutableList<SearchUser> = mutableListOf()
     private var userNameList = mutableListOf<String>()
 
+    /**
+     * 사용자 이름순으로 정렬
+     * */
     @SuppressLint("NotifyDataSetChanged")
     fun updateUserList(page: Int, userList: MutableList<SearchUser>){
         if(page == 1) {
@@ -68,14 +70,25 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
             }
 
             binding.userStar.setOnClickListener {
-                onClickListener?.invoke(item)
+                setBookMark(item)
             }
         }
     }
 
-    var onClickListener:((SearchUser) -> Unit)? = null
-    fun setClickListener(callback: (SearchUser) -> Unit){
-        onClickListener = callback
+    /**
+     * 즐겨찾기 했는지 여부에 따라서 추가/삭제
+     *
+     * @param item 즐겨찾기 여부를 수정할 사용자 정보
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setBookMark(item: SearchUser){
+        if(DBAdapter.selectUser(item.id)){
+            DBAdapter.deleteUserBookmark(item.id)
+        }
+        else{
+            DBAdapter.updateUserBookmark(item)
+        }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(
