@@ -29,7 +29,7 @@ class DBAdapter(context: Context) : DBHelper(
         }
 
         @SuppressLint("Range")
-        fun selectBookMark(): ArrayList<SearchUser>{
+        fun selectBookMark(search:String): ArrayList<SearchUser>{
             val result: ArrayList<SearchUser> = arrayListOf()
             try {
                 val sql =
@@ -39,6 +39,8 @@ class DBAdapter(context: Context) : DBHelper(
                                     userImg,
                                     isBookmark
                             FROM    USER_BOOKMARK
+                            WHERE   login
+                            LIKE    '%${search}%'
                     """
 
                 val cursor: Cursor = db!!.rawQuery(sql, null)
@@ -58,8 +60,6 @@ class DBAdapter(context: Context) : DBHelper(
 
         /**
          * 해당 유저의 즐겨찾기 여부 체크
-         *
-         * TODO item 그려줄 때마다 해당 로직 도는건 X -> 수정 필요
          * */
         @SuppressLint("Range")
         fun selectUser(id: Int): Boolean{

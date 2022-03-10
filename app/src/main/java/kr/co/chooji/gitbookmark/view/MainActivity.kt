@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private var page: Int = 1
     var search: String = ""
+    private var tabPosition: Int = 0
 
     private val adapter = SearchAdapter()
 
@@ -44,7 +45,12 @@ class MainActivity : AppCompatActivity() {
 
             page = 1
             search = binding.searchEditText.text.toString()
-            mainViewModel.getSearchUser(search, page)
+            if(tabPosition == 0){
+                mainViewModel.getSearchUser(search, page)
+            }
+            else{
+                mainViewModel.getBookMark(search)
+            }
 
             val imm = ContextCompat.getSystemService(this, InputMethodManager::class.java)
             imm?.hideSoftInputFromWindow(window.decorView.windowToken, 0)
@@ -59,11 +65,10 @@ class MainActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
-                        setVisibility(0)
+                        tabClickEvent(0)
                     }
                     1 -> {
-                        setVisibility(1)
-                        mainViewModel.getBookMark()
+                        tabClickEvent(1)
                     }
                 }
             }
@@ -95,25 +100,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun tabClickEvent(){
+    fun tabClickEvent(tabPosition: Int){
         adapter.apply {
             list.clear()
             notifyDataSetChanged()
         }
         binding.searchEditText.setText("")
-    }
-
-    fun setVisibility(tabPosition: Int){
-        if(tabPosition == 0){
-            binding.searchBtn.visibility = View.VISIBLE
-            binding.searchEditText.visibility = View.VISIBLE
-            binding.searchBottomView.visibility = View.VISIBLE
-        }
-        else{
-            binding.searchBtn.visibility = View.GONE
-            binding.searchEditText.visibility = View.GONE
-            binding.searchBottomView.visibility = View.GONE
-        }
-        tabClickEvent()
+        this.tabPosition = tabPosition
     }
 }

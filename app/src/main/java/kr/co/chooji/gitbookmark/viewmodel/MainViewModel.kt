@@ -32,8 +32,8 @@ class MainViewModel: ViewModel() {
         )
     }
 
-    fun getBookMark(){
-        userList.value = DBAdapter.selectBookMark()
+    fun getBookMark(search:String){
+        userList.value = DBAdapter.selectBookMark(search)
     }
 
     override fun onCleared() {
