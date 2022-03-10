@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kr.co.chooji.gitbookmark.db.DBAdapter
 import kr.co.chooji.gitbookmark.network.RetrofitService
 import kr.co.chooji.githubapi.model.search.SearchUser
 
@@ -29,6 +30,10 @@ class MainViewModel: ViewModel() {
                 e.printStackTrace()
             })
         )
+    }
+
+    fun getBookMark(){
+        userList.value = DBAdapter.selectBookMark()
     }
 
     override fun onCleared() {

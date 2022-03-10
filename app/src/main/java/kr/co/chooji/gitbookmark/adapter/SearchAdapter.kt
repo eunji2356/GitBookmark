@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.chooji.gitbookmark.R
 import kr.co.chooji.gitbookmark.databinding.ItemUserBinding
+import kr.co.chooji.githubapi.model.search.Search
 import kr.co.chooji.githubapi.model.search.SearchUser
 
 class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
@@ -58,7 +59,16 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
                 .into(binding.userImg)
 
             binding.user.text = item.login
+
+            binding.root.setOnClickListener {
+                onClickListener?.invoke(item)
+            }
         }
+    }
+
+    var onClickListener:((SearchUser) -> Unit)? = null
+    fun setClickListener(callback: (SearchUser) -> Unit){
+        onClickListener = callback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = Holder(
