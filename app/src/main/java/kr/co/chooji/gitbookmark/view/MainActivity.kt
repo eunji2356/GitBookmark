@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         observerViewModel()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initView(){
         binding.searchBtn.setOnClickListener {
             binding.recyclerView.scrollToPosition(0)
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             else{
                 DBAdapter.updateUserBookmark(it)
             }
+            adapter.notifyDataSetChanged()
         }
     }
 

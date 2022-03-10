@@ -12,7 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.chooji.gitbookmark.R
 import kr.co.chooji.gitbookmark.databinding.ItemUserBinding
-import kr.co.chooji.githubapi.model.search.Search
+import kr.co.chooji.gitbookmark.db.DBAdapter
 import kr.co.chooji.githubapi.model.search.SearchUser
 
 class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
@@ -60,7 +60,14 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
 
             binding.user.text = item.login
 
-            binding.root.setOnClickListener {
+            if(DBAdapter.selectUser(item.id)){
+                binding.userStar.setImageResource(R.drawable.ic_star)
+            }
+            else{
+                binding.userStar.setImageResource(R.drawable.ic_star_off)
+            }
+
+            binding.userStar.setOnClickListener {
                 onClickListener?.invoke(item)
             }
         }
