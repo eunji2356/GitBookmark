@@ -90,6 +90,16 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        
+        <TextView
+            android:id="@+id/not_exist_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/not_exist_result"
+            android:layout_marginTop="@dimen/layout_dp_80"
+            android:textSize="@dimen/text_size_20"
+            android:includeFontPadding="false"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

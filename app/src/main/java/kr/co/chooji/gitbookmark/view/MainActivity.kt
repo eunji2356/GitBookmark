@@ -84,6 +84,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun observerViewModel(){
         mainViewModel.userList.observe(this, { list ->
+            if(list.size == 0){
+                binding.notExistResult.visibility = View.VISIBLE
+            }
+            else{
+                binding.notExistResult.visibility = View.GONE
+            }
             adapter.updateUserList(page, list)
         })
     }
