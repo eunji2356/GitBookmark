@@ -94,6 +94,8 @@ class MainActivity : AppCompatActivity() {
      * */
     @SuppressLint("NotifyDataSetChanged")
     fun tabClickEvent(tabPosition: Int){
+        binding.notExistResult.visibility = View.VISIBLE
+
         adapter.apply {
             list.clear()
             notifyDataSetChanged()
