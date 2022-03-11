@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import kr.co.chooji.gitbookmark.utils.DeviceUtils
 import kr.co.chooji.githubapi.model.search.SearchUser
-import java.io.File
 
 class DBAdapter(context: Context) : DBHelper(
     context,
@@ -28,6 +27,37 @@ class DBAdapter(context: Context) : DBHelper(
                 db = dbAdapter!!.writableDatabase
                 this.context = context
             }
+        }
+
+        /**
+         * 즐겨찾기한 전체 목록 불러오기
+         */
+        @SuppressLint("Range")
+        fun selectAllBookMark(): ArrayList<SearchUser>{
+            val result: ArrayList<SearchUser> = arrayListOf()
+            try {
+                val sql =
+                        """
+                       SELECT       id,
+                                    login,
+                                    userImg,
+                                    isBookmark
+                            FROM    USER_BOOKMARK
+                    """
+
+                val cursor: Cursor = db!!.rawQuery(sql, null)
+                while (cursor.moveToNext()){
+                    val searchUser = SearchUser()
+                    searchUser.id = cursor.getInt(cursor.getColumnIndex("id"))
+                    searchUser.login = cursor.getString(cursor.getColumnIndex("login"))
+                    searchUser.avatarUrl = cursor.getString(cursor.getColumnIndex("userImg"))
+                    result.add(searchUser)
+                }
+            }
+            catch (e: Exception){
+                throw Exception("사용자 즐겨찾기 전체 목록을 불러오는 중 오류가 발생했습니다.", e)
+            }
+            return result
         }
 
         /**
@@ -60,7 +90,7 @@ class DBAdapter(context: Context) : DBHelper(
                 }
             }
             catch (e: Exception){
-                throw Exception("사용자 즐겨찾기 삭제하는 중 오류가 발생했습니다.", e)
+                throw Exception("검색어에 해당하는 사용자 즐겨찾기 목록을 불러오는 중 오류가 발생했습니다.", e)
             }
             return result
         }
@@ -87,7 +117,7 @@ class DBAdapter(context: Context) : DBHelper(
                 }
             }
             catch (e: Exception){
-                throw Exception("사용자 즐겨찾기 삭제하는 중 오류가 발생했습니다.", e)
+                throw Exception("사용자 즐겨찾기 여부를 체크하는 중 오류가 발생했습니다.", e)
             }
             return result
         }

@@ -18,12 +18,15 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
 
     val list: MutableList<SearchUser> = mutableListOf()
     private var userNameList = mutableListOf<String>()
+    private var bookmarkList = arrayListOf<SearchUser>()
 
     /**
      * 사용자 이름순으로 정렬
      * */
     @SuppressLint("NotifyDataSetChanged")
     fun updateUserList(page: Int, userList: MutableList<SearchUser>){
+        bookmarkList = DBAdapter.selectAllBookMark()
+
         if(page == 1) {
             list.clear()
         }
@@ -62,11 +65,10 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
 
             binding.user.text = item.login
 
-            if(DBAdapter.selectUser(item.id)){
-                binding.userStar.setImageResource(R.drawable.ic_star)
-            }
-            else{
+            if(bookmarkList.none { it.id == item.id }){
                 binding.userStar.setImageResource(R.drawable.ic_star_off)
+            } else{
+                binding.userStar.setImageResource(R.drawable.ic_star)
             }
 
             binding.userStar.setOnClickListener {
@@ -82,11 +84,13 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.Holder>() {
      */
     @SuppressLint("NotifyDataSetChanged")
     private fun setBookMark(item: SearchUser){
-        if(DBAdapter.selectUser(item.id)){
+        if(bookmarkList.any { it.id == item.id }){
             DBAdapter.deleteUserBookmark(item.id)
+            bookmarkList.remove(bookmarkList.first { it.id == item.id })
         }
         else{
             DBAdapter.updateUserBookmark(item)
+            bookmarkList.add(item)
         }
         notifyDataSetChanged()
     }

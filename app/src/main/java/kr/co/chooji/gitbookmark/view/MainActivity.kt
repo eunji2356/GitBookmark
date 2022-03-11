@@ -64,12 +64,8 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
-                    0 -> {
-                        tabClickEvent(0)
-                    }
-                    1 -> {
-                        tabClickEvent(1)
-                    }
+                    0 -> { tabClickEvent(0) }
+                    1 -> { tabClickEvent(1) }
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -78,15 +74,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observerViewModel(){
-        mainViewModel.userList.observe(this, { list ->
-            if(list.size == 0){
+        mainViewModel.userList.observe(this) { list ->
+            if (list.size == 0) {
                 binding.notExistResult.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 binding.notExistResult.visibility = View.GONE
             }
             adapter.updateUserList(page, list)
-        })
+        }
     }
 
     /**
