@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import kr.co.chooji.gitbookmark.utils.DeviceUtils
 import kr.co.chooji.githubapi.model.search.SearchUser
+import java.io.File
 
 class DBAdapter(context: Context) : DBHelper(
     context,
-     "${context.filesDir.absolutePath}/BookMark/$DB_NAME",
+    DeviceUtils.getRootPath(context) + DeviceUtils.getBookMark(context) + DB_NAME,
     DB_VERSION
 ) {
 
